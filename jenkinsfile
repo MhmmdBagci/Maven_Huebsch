@@ -5,7 +5,6 @@ pipeline {
         stage("Cleaning workspace") {
             steps {
                 sh "rm -rf ./*"
-                sh 'mvn clean'
             }
         }
         stage('Github Code') {
