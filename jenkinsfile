@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("Cleaning workspace") {
+            steps {
+                sh "rm -rf ./*"
+                sh 'mvn clean'
+            }
+        }
+        stage('Github Code') {
+            steps {
+                git 'https://github.com/MhmmdBagci/Maven_Huebsch.git'
+            }
+        }
+        stage('Build Project') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('Package Project') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Zip JAR File') {
+            steps {
+                sh 'zip -r Maven_Huebsch.zip target/maven-d-1.0-SNAPSHOT.jar'
+            }
+        }
+        stage('Deploy Message') {
+            steps {
+                echo 'Jar file Deployed'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline erfolgreich abgeschlossen.'
+        }
+        failure {
+            echo 'Pipeline fehlgeschlagen.'
+        }
+    }
+}
