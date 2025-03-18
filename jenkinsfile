@@ -14,12 +14,7 @@ pipeline {
         }
         stage('Build Project') {
             steps {
-                sh 'mvn compile'
-            }
-        }
-        stage('Package Project') {
-            steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
             }
         }
         stage('Zip JAR File') {
